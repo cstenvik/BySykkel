@@ -2,39 +2,41 @@
 
 Liten webapplikasjon som viser bysykkelstasjoner og tilgjengelige sykler/låser ved hver statsjon
 
-## Recommended IDE Setup
+# Om prosjektet
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Applikasjonen er skrevet i JavaScipt/Vue3
+Den benytter BySykkel sitt åpne API som kalles ved lasting av siden vha axios
+Om noe går galt med kall mot API`et vil det vises en standard feilmelding
 
-## Customize configuration
+Applikasjonene krever Node/npm
+Google Maps API nøkkel må også angis i en env.local fil
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Project Setup
+## Innstaller prosjektet
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Kjør lokalt
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Klargjør for produksjon
 
 ```sh
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### Unit testing med [Vitest](https://vitest.dev/)
 
 ```sh
 npm run test:unit
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### Lint med [ESLint](https://eslint.org/)
 
 ```sh
 npm run lint
