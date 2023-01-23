@@ -5,10 +5,10 @@ Liten webapplikasjon som viser Oslo Bysykkel sine stasjoner med tilgjengelige sy
 # Om prosjektet
 
 Applikasjonen er skrevet i JavaScript/Vue3.   
-Den benytter BySykkel sitt åpne API som kalles ved lasting av siden vha axios.  
+Den benytter BySykkel sitt åpne API som kalles ved lasting av siden via [axios](https://github.com/axios/axios).  
 Om noe går galt med kall mot API`et vil det vises en standard feilmelding.  
 
-Applikasjonene krever Node/npm.  
+Applikasjonen krever Node/npm.  
 Google Maps API nøkkel må også angis i en env.local fil 
 
 
