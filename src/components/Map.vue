@@ -15,7 +15,7 @@ export default {
     title: {
         type: String,
         required: false,
-        defaut: 'Kart som viser bysykkel stasjoner med status'
+        defaut: 'Kart som viser Oslo Bysykkel sine stasjoner med tilgjengelige sykler og låser'
         }
    },
    data() {
@@ -26,7 +26,7 @@ export default {
       loading: false,
       label: 'Oppdater kart',
       updated: '',
-      error: ''
+      error: '',
     }
   },
   mounted() {
@@ -37,33 +37,54 @@ export default {
        this.openedMarkerID = id
     },
     async loadData() {  
+        moment.locale('nb')
+        this.loading = true;
+        this.label = 'Laster...'
+        let stations = []
+        this.$refs.bsMap.$mapPromise.then((map) => {
+            map.setZoom(13)
+            map.setCenter(this.center)
+
+        })
         try {
-            moment.locale('nb')
-            this.loading = true;
-            this.label = 'Laster...'
-            const stations = []
             const station_information = await axios.get(`https://gbfs.urbansharing.com/oslobysykkel.no/station_information.json`, {
                 header: { 'Client-Identifier': 'christian-stenvik-bymonitor' },
             })
+
+            stations = station_information.data.data.stations.map((s) => ({
+                id: s.station_id,
+                position: { lat: s.lat, lng: s.lon },
+                name: s.name,
+                address: s.address,
+                capacity: s.capacity ,
+                num_bikes_available: '',
+                num_docks_available: '',
+                last_reported: '', 
+            }))
+
+            this.stations = stations
+        }
+        catch(e) {
+            console.log(e) 
+            this.loading = false; 
+            this.label = 'Oppdater kart'
+            this.error = "Noe gikk galt ved henting av stasjoner. Vennligst prøv igjen!"
+            return
+        }
+        
+        try {
             const station_status = await axios.get(`https://gbfs.urbansharing.com/oslobysykkel.no/station_status.json`, {
                 header: { 'Client-Identifier': 'christian-stenvik-bymonitor' },
             })
 
-            station_information.data.data.stations.forEach((s) => {
-                const status = station_status.data.data.stations.find((e) => e.station_id == s.station_id)
-                const marker = {
-                    id: s.station_id,
-                    position: { lat: s.lat, lng: s.lon },
-                    name: s.name,
-                    address: s.address,
-                    capacity: s.capacity ,
-                    num_bikes_available: status?.num_bikes_available,
-                    num_docks_available: status?.num_docks_available,
-                    last_reported: moment.unix(status?.last_reported).fromNow(),     
-                }
-                stations.push(marker)     
+            station_status.data.data.stations.forEach((status) => {
+                let station_index = this.stations.findIndex((e) => e.id == status.station_id)
+                this.stations[station_index].num_bikes_available = status.num_bikes_available
+                this.stations[station_index].num_docks_available = status.num_docks_available
+                this.stations[station_index].last_reported = moment.unix(status.last_reported).fromNow()
+                    
             })
-            this.stations = stations
+
             this.loading = false;
             this.label = 'Oppdater kart'
             this.updated = moment(Date.now()).fromNow()
@@ -72,7 +93,7 @@ export default {
             console.log(e) 
             this.loading = false; 
             this.label = 'Oppdater kart'
-            this.error = "Noe gikk galt ved henting av stasjoner. Vennligst prøv igjen!"
+            this.error = "Noe gikk galt ved henting av status for stasjonene. Vennligst prøv igjen!"
         } 
     },
   },
@@ -87,15 +108,20 @@ export default {
     <GMapMap
         :center="center"
         :zoom="13"
+        ref="bsMap"
         style="width: 100%; height: 900px"
     >
         <GMapMarker
         :key="index"
         v-for="(m, index) in stations"
         :position="m.position"
-        :label="m.num_bikes_available.toString()+ '/' + m.capacity.toString()"
+        :label="{
+            text: m.num_bikes_available.toString()+ '/' + m.capacity.toString(),
+            color: 'black',
+            fontSize: '8px',
+        }"
         :clickable="true"
-        :draggable="true"
+        :draggable="false"
         @click="openMarker(m.id)" >
           <GMapInfoWindow
           :closeclick="true"

@@ -4,7 +4,7 @@ import Map from './components/Map.vue'
 
 <template>
   <div> 
-    <Map title="Kart som viser bysykkelstasjoner med status"/>
+    <Map title="Kart som viser Oslo Bysykkel sine stasjoner med tilgjengelige sykler og låser'"/>
   </div>
 </template>
 

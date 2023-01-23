@@ -1,6 +1,6 @@
 # BySykkel
 
-Liten webapplikasjon som viser bysykkelstasjoner og tilgjengelige sykler/låser ved hver stasjon
+Liten webapplikasjon som viser Oslo Bysykkel sine stasjoner med tilgjengelige sykler og låser
 
 # Om prosjektet
 
