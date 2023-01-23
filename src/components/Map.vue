@@ -103,13 +103,13 @@ export default {
 
 <template>
     <div>
-        <h2>{{title}}</h2>
+        <h3>{{title}}</h3>
     </div>
     <GMapMap
         :center="center"
         :zoom="13"
         ref="bsMap"
-        style="width: 100%; height: 900px"
+        style="width: 100%; height: 650px"
     >
         <GMapMarker
         :key="index"
