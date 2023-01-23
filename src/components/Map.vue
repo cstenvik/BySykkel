@@ -65,7 +65,7 @@ export default {
             this.stations = stations
         }
         catch(e) {
-            console.log(e) 
+            //console.log(e) 
             this.loading = false; 
             this.label = 'Oppdater kart'
             this.error = "Noe gikk galt ved henting av stasjoner. Vennligst prøv igjen!"
@@ -90,7 +90,7 @@ export default {
             this.updated = moment(Date.now()).fromNow()
         }
         catch(e) {
-            console.log(e) 
+            //console.log(e) 
             this.loading = false; 
             this.label = 'Oppdater kart'
             this.error = "Noe gikk galt ved henting av status for stasjonene. Vennligst prøv igjen!"
