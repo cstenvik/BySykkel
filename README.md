@@ -1,10 +1,10 @@
 # BySykkel
 
-Liten webapplikasjon som viser bysykkelstasjoner og tilgjengelige sykler/låser ved hver statsjon
+Liten webapplikasjon som viser bysykkelstasjoner og tilgjengelige sykler/låser ved hver stasjon
 
 # Om prosjektet
 
-Applikasjonen er skrevet i JavaScipt/Vue3
+Applikasjonen er skrevet i JavaScript/Vue3
 Den benytter BySykkel sitt åpne API som kalles ved lasting av siden vha axios
 Om noe går galt med kall mot API`et vil det vises en standard feilmelding
 
