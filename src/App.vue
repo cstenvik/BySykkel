@@ -4,7 +4,7 @@ import Map from './components/Map.vue'
 
 <template>
   <div> 
-    <Map title="Kart som viser bysykkel stasjoner med status"/>
+    <Map title="Kart som viser bysykkelstasjoner med status"/>
   </div>
 </template>
 

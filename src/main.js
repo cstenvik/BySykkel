@@ -12,7 +12,7 @@ const app = createApp(App)
 app
 .use(VueGoogleMaps, {
     load: {
-        key: 'AIzaSyB5gBrCERWIe3aYDiEv07LZQy7HCC8Mu58',
+        key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
     },
 })
 .use(PrimeVue)
