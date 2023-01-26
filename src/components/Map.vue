@@ -71,7 +71,17 @@ export default {
             this.error = "Noe gikk galt ved henting av stasjoner. Vennligst prøv igjen!"
             return
         }
-        
+        this.updateStatus()
+    },
+    async updateStatus() {
+        moment.locale('nb')
+        this.loading = true;
+        this.label = 'Laster...'
+        this.$refs.bsMap.$mapPromise.then((map) => {
+            map.setZoom(13)
+            map.setCenter(this.center)
+
+        })
         try {
             const station_status = await axios.get(`https://gbfs.urbansharing.com/oslobysykkel.no/station_status.json`, {
                 header: { 'Client-Identifier': 'christian-stenvik-bymonitor' },
@@ -95,9 +105,8 @@ export default {
             this.label = 'Oppdater kart'
             this.error = "Noe gikk galt ved henting av status for stasjonene. Vennligst prøv igjen!"
         } 
-    },
   },
-
+}
 }
 </script>
 
@@ -138,7 +147,7 @@ export default {
      </GMapMarker>
     </GMapMap>
     <div :style="{'margin-top':'10px'}">
-        <PButton :label=label  @click="loadData()" :style="{'margin-right':'10px', 'min-width': '200px'}" />
+        <PButton :label=label  @click="updateStatus()" :style="{'margin-right':'10px', 'min-width': '200px'}" />
         <PSpinner v-if="loading" style="width:35px;height:35px" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s" aria-label="loading"/>
     </div>
     <div :style="{'margin-top':'10px'}">
